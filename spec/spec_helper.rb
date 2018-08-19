@@ -1,7 +1,11 @@
 require 'simplecov'
 require 'rack/test'
+require 'mustermann'
 
 # SimpleCov.start
+
+lib = File.join(File.dirname(__FILE__), '../lib/*.rb')
+Dir[File.expand_path(lib)].each { |file| require file }
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
