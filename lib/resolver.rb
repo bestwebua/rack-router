@@ -16,7 +16,7 @@ class Router
 
     def fetch(request_method, request_path)
       route_data = find_method_to_call(request_method, request_path).reject(&:empty?)
-      App.public_send(*route_data)
+      MethodsToCall.public_send(*route_data)
     end
 
     private
