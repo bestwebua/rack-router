@@ -1,6 +1,5 @@
 class Router
   class Resolver
-    ROUTE_NOT_FOUND = 'Route not found, checkout your Router instance.'.freeze
     attr_accessor :routes
 
     def initialize
@@ -30,7 +29,7 @@ class Router
         hash.keys.first === request_path
       end
 
-      raise ROUTE_NOT_FOUND unless pattern_method
+      raise Constant::ROUTE_NOT_FOUND unless pattern_method
 
       pattern_method.map do |pattern, method_to_call|
         [method_to_call, pattern.params(request_path)]

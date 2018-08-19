@@ -6,7 +6,7 @@ class Router
     instance_eval(&block) if block_given?
   end
 
-  %w[GET POST].each do |request_method|
+  Constant::REQUEST_METHODS.split.each do |request_method|
     define_method(request_method.downcase) do |path_route, **args|
       add_route(request_method, path_route, args)
     end
