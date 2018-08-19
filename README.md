@@ -1,3 +1,3 @@
 # Rack Router
 
-Simple Rack Router implementation. Task by [@IvanShamatov](https://github.com/IvanShamatov)
+Simple Rack Router implementation.
