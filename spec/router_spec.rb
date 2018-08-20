@@ -99,5 +99,16 @@ class Router
 
       specify { expect(router.resolver).to have_received(:fetch) }
     end
+
+    describe '#to_app' do
+      before do
+        allow(App).to receive(:new).with(router.resolver)
+        router.to_app
+      end
+
+      after { router.to_app }
+
+      specify { expect(App).to have_received(:new).with(router.resolver) }
+    end
   end
 end
