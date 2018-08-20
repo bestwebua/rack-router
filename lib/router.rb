@@ -19,7 +19,7 @@ class Router
   end
 
   def resolve(request_method, path_route)
-    resolver.fetch([request_method, path_route])
+    resolver.fetch(request_method, path_route)
   end
 
   def to_app
