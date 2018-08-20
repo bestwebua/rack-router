@@ -68,5 +68,34 @@ class Router
         end
       end
     end
+
+    describe '#add_route' do
+      before { allow(router.resolver).to receive(:push) }
+
+      after { router.add_route('GET', '/', to: :home) }
+
+      context 'when args key exists' do
+        before { router.add_route('GET', '/', to: :home) }
+
+        specify { expect(router.resolver).to have_received(:push) }
+      end
+
+      context 'when args key not exists' do
+        before { router.add_route('GET', '/', not_to: :home) }
+
+        specify { expect(router.resolver).not_to have_received(:push) }
+      end
+    end
+
+    describe '#resolve' do
+      before do
+        allow(router.resolver).to receive(:fetch)
+        router.resolve('GET', '/')
+      end
+
+      after { router.resolve('GET', '/') }
+
+      specify { expect(router.resolver).to have_received(:fetch) }
+    end
   end
 end
