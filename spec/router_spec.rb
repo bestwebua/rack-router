@@ -2,8 +2,9 @@ require 'spec_helper'
 
 class Router
   RSpec.describe Router do
+    let(:router) { subject }
+
     describe '#initialize' do
-      let(:router) { subject }
       let(:get_post_stub) do
         allow(router).to receive(:get)
         allow(router).to receive(:post)
@@ -43,6 +44,28 @@ class Router
       describe '#resolver' do
         specify { expect(router.methods).to include(:resolver, :resolver=) }
         specify { expect(router.resolver).to be_an_instance_of(Resolver) }
+      end
+    end
+
+    Constant::REQUEST_METHODS.split.each do |request_method|
+      request_method.downcase!
+      describe "##{request_method}" do
+        context 'when method exist' do
+          specify { expect(router.methods).to include(:"#{request_method}") }
+        end
+
+        context 'when method call' do
+          let(:request_method_call) { router.send(:"#{request_method}", '/', to: :home) }
+
+          before do
+            allow(router).to receive(:add_route)
+            request_method_call
+          end
+
+          after { request_method_call }
+
+          specify { expect(router).to have_received(:add_route) }
+        end
       end
     end
   end
