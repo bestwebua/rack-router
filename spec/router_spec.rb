@@ -88,12 +88,14 @@ class Router
     end
 
     describe '#resolve' do
+      let(:resolve_call) { router.resolve('GET', '/') }
+
       before do
         allow(router.resolver).to receive(:fetch)
-        router.resolve('GET', '/')
+        resolve_call
       end
 
-      after { router.resolve('GET', '/') }
+      after { resolve_call }
 
       specify { expect(router.resolver).to have_received(:fetch) }
     end
