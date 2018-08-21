@@ -14,8 +14,12 @@ class Router
     end
 
     def fetch(request_method, request_path)
-      route_data = find_method_to_call(request_method, request_path).reject(&:empty?)
-      MethodsToCall.public_send(*route_data)
+      route_data = find_method_to_call(request_method, request_path)
+      if route_data
+        [MethodsToCall.public_send(*route_data.reject(&:empty?)), '200']
+      else
+        [Constant::ROUTE_NOT_FOUND, '404']
+      end
     end
 
     private
@@ -29,7 +33,7 @@ class Router
         hash.keys.first === request_path
       end
 
-      raise Constant::ROUTE_NOT_FOUND unless pattern_method
+      return nil unless pattern_method
 
       pattern_method.map do |pattern, method_to_call|
         [method_to_call, pattern.params(request_path)]
