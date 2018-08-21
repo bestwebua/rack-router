@@ -29,8 +29,8 @@ class Router
     end
 
     def find_method_to_call(request_method, request_path)
-      pattern_method = routes[request_method].find do |hash|
-        hash.keys.first === request_path
+      pattern_method = routes[request_method].find do |pattern_hash|
+        pattern_hash.keys.first === request_path
       end
 
       return nil unless pattern_method
