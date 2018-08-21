@@ -8,7 +8,8 @@ class Router
 
     def call(env)
       request_data = [env['REQUEST_METHOD'], env['PATH_INFO']]
-      ['200', {}, [resolver.fetch(*request_data)]]
+      response_with_status = resolver.fetch(*request_data)
+      Rack::Response.new(*response_with_status, {})
     end
   end
 end
