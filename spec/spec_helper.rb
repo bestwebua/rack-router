@@ -8,6 +8,8 @@ lib = File.join(File.dirname(__FILE__), '../lib/*.rb')
 Dir[File.expand_path(lib)].each { |file| require file }
 
 RSpec.configure do |config|
+  config.include Rack::Test::Methods
+
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
