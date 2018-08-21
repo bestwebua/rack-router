@@ -1,13 +1,8 @@
-require 'rack'
-require 'json'
-require 'pry'
-require 'mustermann'
+%w[rack json mustermann].each { |gem_name| require gem_name }
+Dir[File.expand_path('lib/*.rb')].each { |file| require_relative file }
 
-require_relative 'lib/constant'
-require_relative 'lib/router'
-require_relative 'lib/resolver'
-require_relative 'lib/app'
-require_relative 'lib/methods_to_call'
+# Example of Router instance.
+# Make config.ru file in root dir with the same context.
 
 router = Router.new do
   get '/', to: :home
