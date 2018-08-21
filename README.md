@@ -2,6 +2,11 @@
 
 Simple Rack Router implementation.
 
+## Router features
+
+1. Understands the params in routes
+2. Handles 404 error
+
 ## Router configuration
 
 ### Step 1. Create your Rack config file:
